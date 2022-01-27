@@ -9,16 +9,14 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-        Scanner console = new Scanner(System.in);       // считываем с клавиатуры
-        System.out.println("Введите путь к файлу:");    // путь к
-        File file = new File(console.nextLine());       // файлу
-        console = new Scanner(file);                    // с числами для массива
+        File file = new File(args[0]);                 //args[0] - путь к файлу
+        Scanner reader = new Scanner(file);
 
         ArrayList<Integer> list = new ArrayList<>();
-        while (console.hasNextInt()) {
-            list.add(console.nextInt());                //записываем их в лист
+        while (reader.hasNextInt()) {
+            list.add(reader.nextInt());                //записываем их в лист
         }
-        console.close();
+        reader.close();
 
         int[] nums = new int[list.size()];              // из листа переписываем
         for (int i = 0; i < list.size(); i++) {         // в
@@ -30,7 +28,9 @@ public class Main {
             sum += x;
         }
 
-        int avg = (sum / nums.length);                  //находим среднее значение, для приведения к которому и считаем шаги
+        int avg = (int) Math.round((double) sum / (double) nums.length); //находим среднее значение, для приведения к которому и считаем шаги
+
+        System.out.println(avg);
 
         int count = 0;                                  //count - количество шагов
 

@@ -7,41 +7,49 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Путь к файлу 1:"); //считываем с клавиатуры путь к файлу 1
-        File file1 = new File(sc.nextLine());
-        sc = new Scanner(file1); // считываем числа из файла 1
+        String path1 = args[0]; //передается путь к файлу 1
 
-        int x0 = sc.nextInt(); // координата х центра окружности
-        int y0 = sc.nextInt(); // координата у центра окружности
-        int r = sc.nextInt(); // радиус окружности
+        File file1 = new File(path1);
+        Scanner reader = new Scanner(file1); // считываются числа из файла 1
 
-        sc.close();
+        float x0 = Float.parseFloat(reader.next()); // координата х центра окружности
+        float y0 = Float.parseFloat(reader.next()); // координата у центра окружности
+        float r = Float.parseFloat(reader.next()); // радиус окружности
 
-        Scanner sc2 = new Scanner(System.in);
-        System.out.println("Путь к файлу 2:"); //считываем с клавиатуры путь к файлу 1
-        File file2 = new File(sc2.nextLine());
-        sc2 = new Scanner(file2); // считываем числа из файла 2
-        int x = sc2.nextInt(); // координата х точки
-        int y = sc2.nextInt(); // координата у точки
+        String path2 = args[1]; //передается путь к файлу 2
 
-        sc2.close();
+        File file2 = new File(path2);
+        reader = new Scanner(file2); // считываются числа из файла 2
+        while(reader.hasNext()) {
+            float x = Float.parseFloat(reader.next()); // координата х точки
+            float y = Float.parseFloat(reader.next()); // координата у точки
+            printResult(x0, y0, r, x, y);
 
-        int result = pow(x - x0) + pow(y - y0); //решаем неравенство (х-х0)^2 + (y-y0)^2 = R^2
-        if(result > pow(r)) {
-            System.out.println(2);                    //2 - точка снаружи, 1 - внутри, 0 - лежит на окружности
         }
-        else if (result == pow(r)) {
-            System.out.println(0);
-        }
-        else System.out.println(1);
 
+        reader.close();
     }
 
     /*
-    метод для возведения числа в квадрат
+    метод для вывода результатов
+    2 - точка снаружи, 1 - внутри, 0 - лежит на окружности
      */
-    public static int pow(int x) {
+
+    public static void printResult(float x0, float y0, float r, float x, float y) {
+        float result = (pow(x - x0) + pow(y - y0));
+        if (result > pow(r)) {
+            System.out.println(2);
+        } else if (result == pow(r)) {
+            System.out.println(0);
+        } else System.out.println(1);
+    }
+
+
+    /*
+    метод для возведения числа в квадрат
+    */
+
+    public static float pow(float x) {
         return x * x;
     }
 
