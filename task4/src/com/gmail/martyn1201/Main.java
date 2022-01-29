@@ -3,13 +3,23 @@ package com.gmail.martyn1201;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
 
+    /*
+    метод для подсчета количества ходов для приведения всех элементов массива к одному числу
+
+    filePath - путь к файлу, из которого передаются числа для массива
+
+     */
+
     public static void main(String[] args) throws FileNotFoundException {
 
-        File file = new File(args[0]);                 //args[0] - путь к файлу
+        String filePath = args[0];
+
+        File file = new File(filePath);
         Scanner reader = new Scanner(file);
 
         ArrayList<Integer> list = new ArrayList<>();
@@ -23,16 +33,25 @@ public class Main {
             nums[i] = list.get(i);                      // массив
         }
 
+
         int sum = 0;
         for(int x: nums) {
             sum += x;
         }
 
-        int avg = (int) Math.round((double) sum / (double) nums.length); //находим среднее значение, для приведения к которому и считаем шаги
+        /*
+        алгоритм поиска числа, к которому нужно привести каждое число в массиве.
+         */
 
-        System.out.println(avg);
+        int avg;
+        Arrays.sort(nums);
+        if(nums.length % 2 == 0) {
+            avg = (nums[nums.length / 2] + nums[nums.length / 2 - 1]) / 2;
+        }
+        else avg = (nums[nums.length / 2]);
 
-        int count = 0;                                  //count - количество шагов
+
+        int count = 0;                                  //count - количество ходов
 
         for(int i = 0; i < nums.length; i++) {          //в цикле считаем количество шагов для каждого отдельного значения
             while(nums[i] > avg) {                      //и суммируем эти значения
