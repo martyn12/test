@@ -4,6 +4,12 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Main {
+    
+    /*
+     метод для определения принадлежности точки к окружности,
+     координаты центра окружности и ее радиус считываются из файла, 
+     координаты точки считываются из второго файла
+     */
 
     public static void main(String[] args) throws IOException {
 
